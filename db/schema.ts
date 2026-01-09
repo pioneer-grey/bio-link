@@ -91,3 +91,9 @@ export const accountRelations = relations(account, ({ one }) => ({
     references: [user.id],
   }),
 }));
+
+export const page=pgTable("page",{
+  userName:text("userName").unique().notNull().primaryKey(),
+  userId:text("userId").notNull().references(()=>user.id),
+  createdAt:timestamp("createdAt").defaultNow()
+})
