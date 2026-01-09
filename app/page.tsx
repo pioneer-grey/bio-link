@@ -12,7 +12,7 @@ const session = await auth.api.getSession({
     }
     return (
         <div>
-            <h1>Welcome {session.user.email}</h1>
+            <h1>Welcome {session.user.id}</h1>
         </div>
     )
 }
