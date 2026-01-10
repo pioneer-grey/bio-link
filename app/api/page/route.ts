@@ -2,7 +2,7 @@ import { NextRequest,NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { db } from "@/db/db";
-import {page} from "@/db/schema"
+import {page,header} from "@/db/schema"
 import { eq } from "drizzle-orm";
 
 export async function POST(req:NextRequest){
@@ -21,6 +21,11 @@ export async function POST(req:NextRequest){
     await db.insert(page).values({
         userId:userId,
         userName:userName
+    })
+    await db.insert(header).values({
+        userName:userName,
+        name:"@username",
+        bio:"Turning ideas into usable things."
     })
 
     return NextResponse.json({

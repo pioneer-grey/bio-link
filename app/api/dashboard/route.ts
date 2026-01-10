@@ -1,24 +1,36 @@
-import { NextRequest,NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { db } from "@/db/db";
-import {page} from "@/db/schema"
+import { page, header } from "@/db/schema"
 import { eq } from "drizzle-orm";
 
 
 
-export async function GET(){
-    const session=await auth.api.getSession({
-        headers:await headers()
-    })
-    const userId=session?.user.id as string
-    const result=await db.select().from(page).where(eq(page.userId,userId))
-    if(result.length==0){
+export async function GET() {
+    try {
+        const session = await auth.api.getSession({
+            headers: await headers()
+        })
+        const userId = session?.user.id as string
+        const styleResult = await db.select().from(page).where(eq(page.userId, userId))
+        if (styleResult.length == 0) {
+            return NextResponse.json({
+                success: false
+            })
+        }
+        const username = styleResult[0].userName
+        const headerResult = await db.select().from(header).where(eq(header.userName, username))
         return NextResponse.json({
-            success:false
+            success: true,
+            styles: styleResult[0],
+            header: headerResult[0]
         })
     }
-    return NextResponse.json({
-        success:true
-    })
+    catch {
+        return NextResponse.json({
+            message: "Internal Server Error"
+        }, { status: 500 })
+    }
+
 }

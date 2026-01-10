@@ -41,9 +41,9 @@ export function UploadAvatar(){
       const res = await axios.put("/api/page/profile",formData)
       return res.data
     },
-    onSuccess:()=>{
-         queryClient.invalidateQueries({ queryKey: ['getPage'] });
-    },
+    // onSuccess:()=>{
+    //      queryClient.invalidateQueries({ queryKey: ['getPage'] });
+    // },
      onError: (error: any) => {
     if (axios.isAxiosError(error)) {
       toast.error(
@@ -67,9 +67,9 @@ export function UpdateHeader(){
       const res = await axios.put("/api/page/header",values)
       return res.data
     },
-    onSuccess:()=>{
-         queryClient.invalidateQueries({ queryKey: ['getPage'] });
-    },
+    // onSuccess:()=>{
+    //      queryClient.invalidateQueries({ queryKey: ['getPage'] });
+    // },
      onError: (error: any) => {
     if (axios.isAxiosError(error)) {
       toast.error(

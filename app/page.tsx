@@ -1,18 +1,10 @@
-
-import { auth } from "@/lib/auth"
-import { headers } from "next/headers"
-
+import { Button } from '@/components/ui/button'
+import { SignoutAction } from '@/actions/auth'
 export default async function Page() {
 
-const session = await auth.api.getSession({
-        headers: await headers()
-    })
-    if(!session) {
-        return <div>Not authenticated</div>
-    }
     return (
         <div>
-            <h1>Welcome {session.user.id}</h1>
+            <Button onClick={SignoutAction}>Logout</Button>
         </div>
     )
 }
