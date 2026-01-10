@@ -30,7 +30,7 @@ export async function PUT(req: NextRequest) {
         const avatarFileName = `${Date.now()}-avatar.jpg`;
 
         const { error: avatarError } = await supabase.storage
-            .from("posters")
+            .from("profile")
             .upload(avatarFileName, avatar, {
                 contentType: "image/jpeg",
             });
@@ -38,7 +38,7 @@ export async function PUT(req: NextRequest) {
         if (avatarError) throw avatarError;
 
         const { data: avatarUrlData } = supabase.storage
-            .from("posters")
+            .from("profile")
             .getPublicUrl(avatarFileName);
         const avatarUrl = avatarUrlData.publicUrl;
 

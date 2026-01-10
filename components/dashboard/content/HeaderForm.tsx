@@ -13,6 +13,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
+import { UpdateHeader } from '@/actions/page'
 export const formSchema = z.object({
    name: z
     .string()
@@ -25,6 +26,7 @@ export const formSchema = z.object({
 
 
 const HeaderForm = () => {
+  const{mutateAsync,isPending}=UpdateHeader()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -34,14 +36,12 @@ const HeaderForm = () => {
       })
     
       async function onSubmit(values: z.infer<typeof formSchema>) {
-    
         try {
-        
+          const res=await mutateAsync(values)
+          console.log(res)
         }
         catch (err: any) {
-        
-        }
-        finally{
+          console.log(err)
         }
       }
   return (
@@ -73,7 +73,7 @@ const HeaderForm = () => {
                     </FormItem>
                   )}
                 />
-                <Button  className='w-full' type="submit">Save</Button>
+                <Button disabled={isPending}  className='w-full' type="submit">Save</Button>
               </form>
             </Form>
   )

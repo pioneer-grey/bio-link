@@ -1,11 +1,12 @@
 "use client";
 
 import { CircleUserRoundIcon,Upload } from "lucide-react";
-
+import { UploadAvatar } from "@/actions/page";
 import { useFileUpload } from "@/hooks/use-file-upload";
 import { Button } from "@/components/ui/button";
 
 export default function UploadImg() {
+  const {mutateAsync,isPending}=UploadAvatar()
   const [{ files }, { removeFile, openFileDialog, getInputProps }] =
     useFileUpload({
       accept: "image/*",
@@ -13,9 +14,20 @@ export default function UploadImg() {
 
   const previewUrl = files[0]?.preview || null;
   const fileName = files[0]?.file.name || null;
+  const file = files[0]?.file || null;
+  
+   const handleRemoveFile = () => {
+    removeFile(files[0]?.id);
+  };
 
-    const submit=()=>{
-
+  const submit=async()=>{
+      try{
+        const res=await mutateAsync(file as File)
+        handleRemoveFile()
+      }
+      catch(err:any){
+        console.log(err)
+      }
     }
   return (
     <div className="flex flex-col items-center gap-2">
@@ -67,7 +79,7 @@ export default function UploadImg() {
             Remove
           </button>
         </div>
-        <Button onClick={submit}><Upload/> Upload</Button>
+        <Button disabled={isPending} onClick={submit}><Upload/> Upload</Button>
         </>
       )}
     </div>
