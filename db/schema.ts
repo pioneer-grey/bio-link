@@ -117,7 +117,7 @@ export const page=pgTable("page",{
 
 export const header =pgTable("header",{
   userName:text("userName").notNull().references(()=>page.userName).primaryKey(),
-  name:text("name").default("@username").notNull(),
+  name:text("name").default("@username"),
   bio:text("bio"),
   picURL:text("picURL").default("https://github.com/maxleiter.png")
 })

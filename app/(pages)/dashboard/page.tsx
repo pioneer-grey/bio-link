@@ -7,8 +7,10 @@ import Display from "@/components/dashboard/Display"
 import Styles from "@/components/dashboard/Styles"
 import Content from "@/components/dashboard/Content"
 
+
 export default function page() {
   const { data, isLoading } = getPage()
+
   if (isLoading) {
     return (
       <div className='h-screen flex justify-center items-center'>
@@ -16,6 +18,7 @@ export default function page() {
       </div>
     )
   }
+  
   if (!data.success) {
     return (
       <>
@@ -28,7 +31,8 @@ export default function page() {
 
     )
   }
-  console.log(data)
+
+
   return (
     <>
    <div className="grid grid-cols-12 ">

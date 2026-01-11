@@ -51,7 +51,7 @@ export default function UploadImg() {
           )}
         </div>
         <div className="relative inline-block">
-          <Button aria-haspopup="dialog" onClick={openFileDialog}
+          <Button disabled={isPending} aria-haspopup="dialog" onClick={openFileDialog}
           variant={fileName ? "outline" : "default"}
           >
             {fileName ? "Change image" : "Upload image"}
@@ -70,14 +70,6 @@ export default function UploadImg() {
           <p aria-live="polite" className="truncate text-muted-foreground">
             {fileName}
           </p>{" "}
-          <button
-            aria-label={`Remove ${fileName}`}
-            className="font-medium text-destructive hover:underline"
-            onClick={() => removeFile(files[0]?.id)}
-            type="button"
-          >
-            Remove
-          </button>
         </div>
         <Button disabled={isPending} onClick={submit}><Upload/> Upload</Button>
         </>

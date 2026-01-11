@@ -16,6 +16,7 @@ import {
 import UploadImg from './content/UploadImg';
 import { ButtonGroup } from "@/components/ui/button-group"
 import HeaderForm from './content/HeaderForm';
+
 const Content = () => {
     return (
         <>

@@ -5,32 +5,11 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
+import {header,styles} from "@/store/types"
 
 type props = {
-  styles: {
-    userName: string;
-    userId: string;
-    primaryTextColor: string | null;
-    primaryBackground: string | null;
-    desktopBackgroundColor: string | null;
-    profilePictureShadow: number | null;
-    profilePictureBorder: number | null;
-    socialIconSize: number | null;
-    cardColor: string | null;
-    cardTextColor: string | null;
-    cardCorner: number | null;
-    cardBorder: number | null;
-    cardBorderColor: string | null;
-    cardShadow: number | null;
-    cardSpacing: number | null;
-    createdAt: Date | null;
-  },
-  header: {
-    userName: string;
-    name: string;
-    bio: string | null;
-    picURL: string | null;
-  }
+  styles: styles,
+  header: header
 }
 const Display = ({styles,header}:props) => {
   return (
