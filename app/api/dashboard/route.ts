@@ -13,7 +13,23 @@ export async function GET() {
             headers: await headers()
         })
         const userId = session?.user.id as string
-        const styleResult = await db.select().from(page).where(eq(page.userId, userId))
+        const styleResult = await db.select({
+            userName: page.userName,
+            primaryTextColor: page.primaryTextColor,
+            primaryBackground: page.primaryBackground,
+            desktopBackgroundColor: page.desktopBackgroundColor,
+            profilePictureShadow: page.profilePictureShadow,
+            profilePictureBorder: page.profilePictureBorder,
+            socialIconSize: page.socialIconSize,
+            cardColor: page.cardColor,
+            cardTextColor: page.cardTextColor,
+            cardCorner: page.cardCorner,
+            cardBorder: page.cardBorder,
+            cardBorderColor: page.cardBorderColor,
+            cardShadow: page.cardShadow,
+            cardSpacing: page.cardSpacing
+        }).from(page).where(eq(page.userId, userId))
+        
         if (styleResult.length == 0) {
             return NextResponse.json({
                 success: false

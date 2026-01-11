@@ -38,7 +38,7 @@ const HeaderForm = () => {
     },
   })
 
-  async function onSubmit(values: { name: string; bio: string }) {
+  async function onSubmit(values: { userName:string,name: string; bio: string }) {
     try {
       const res = await mutateAsync(values)
       console.log(res)
@@ -53,6 +53,7 @@ useEffect(() => {
     clearTimeout(timeout)  
     timeout = setTimeout(() => {
       const safeValues = {
+        userName:header?.userName || "",
         name: values.name || "",
         bio: values.bio || ""
       }

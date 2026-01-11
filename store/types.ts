@@ -1,7 +1,6 @@
 
 export type styles= {
     userName: string;
-    userId: string;
     primaryTextColor: string | null;
     primaryBackground: string | null;
     desktopBackgroundColor: string | null;
@@ -15,7 +14,6 @@ export type styles= {
     cardBorderColor: string | null;
     cardShadow: number | null;
     cardSpacing: number | null;
-    createdAt: Date | null;
   }
 
 

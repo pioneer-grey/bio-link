@@ -3,14 +3,29 @@ import { Input } from '../ui/input'
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
 import { useStyles } from '@/store/useStyles'
-
+import { UpdateStyles } from '@/actions/page'
 
 const Styles = () => {
+  const{mutateAsync}=UpdateStyles()
+
   const { setDesktopBackgroundColor, setPrimaryBackground,
     setPrimaryTextColor, setProfilePictureBorder,
     setProfilePictureShadow, styles } = useStyles()
 
-    if(!styles) return null
+   React.useEffect(() => {
+    if (!styles) return
+  let timeout: NodeJS.Timeout
+
+  timeout = setTimeout(() => {
+    mutateAsync(styles)
+  }, 5000) 
+  return () => {
+    clearTimeout(timeout)
+  }
+}, [styles])
+
+
+ if(!styles) return
 
   return (
     <div className='bg-card max-h-screen overflow-auto'>
@@ -26,14 +41,14 @@ const Styles = () => {
         <div className='flex items-center justify-between border-2 p-2 m-2 rounded-2xl'>
           <p className='text-sm font-light'>Primary Background</p>
           <Input className='w-15' type='color'
-            defaultValue={styles?.primaryTextColor || ""}
+            defaultValue={styles?.primaryBackground || ""}
             onChange={(e) => { setPrimaryBackground(e.target.value) }}></Input>
         </div>
 
         <div className='flex items-center justify-between border-2 p-2 m-2 rounded-2xl'>
           <p className='text-sm font-light'>Desktop Background Color</p>
           <Input className='w-15' type='color'
-            defaultValue={styles?.primaryTextColor || ""}
+            defaultValue={styles?.desktopBackgroundColor || ""}
             onChange={(e) => { setDesktopBackgroundColor(e.target.value) }}></Input>
         </div>
       </div>
@@ -55,7 +70,7 @@ const Styles = () => {
           <p className='text-sm  font-light'>Profile Picture Border</p>
           <Slider
             defaultValue={[styles?.profilePictureBorder ?? 2]}
-            min={1}
+            min={0}
             max={10}
             step={1}
             className={cn("w-[40%]")}

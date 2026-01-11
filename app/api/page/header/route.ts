@@ -12,19 +12,14 @@ export async function PUT(req:NextRequest){
             })
             if (!session?.user?.id) return NextResponse.error();
     
-            const userId = session?.user.id as string
-    
-            const usernameResult = await db.select({ userName: page.userName }).from(page).where(eq(page.userId, userId))
-            const {name,bio}=await req.json()
-            if (!usernameResult[0]) return NextResponse.json({ error: "User not found" }, { status: 404 });
-            const username = usernameResult[0].userName;
-    
+            const {name,bio,userName}=await req.json()
+            if (!userName) return NextResponse.json({ error: "User not found" }, { status: 404 });
             await db
                 .update(header)
                 .set({ name:name,
                     bio:bio
                  })
-                .where(eq(header.userName, username));
+                .where(eq(header.userName, userName));
     
             return NextResponse.json({ success: true,});
         }
