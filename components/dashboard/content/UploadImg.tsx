@@ -1,7 +1,7 @@
 "use client";
 
 import { CircleUserRoundIcon,Upload } from "lucide-react";
-import { UploadAvatar } from "@/actions/page";
+import { UploadAvatar } from "@/actions/header";
 import { useFileUpload } from "@/hooks/use-file-upload";
 import { Button } from "@/components/ui/button";
 

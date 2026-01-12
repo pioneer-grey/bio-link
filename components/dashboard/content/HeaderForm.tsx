@@ -12,7 +12,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
-import { UpdateHeader } from '@/actions/page'
+import { UpdateHeader } from '@/actions/header'
 import { useHeader } from '@/store/useHeader'
 
 export const formSchema = z.object({

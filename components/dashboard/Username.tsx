@@ -15,7 +15,6 @@ import {
     InputGroupButton,
     InputGroupInput,
     InputGroupText,
-    InputGroupTextarea,
 } from "@/components/ui/input-group"
 import {
     Card,
@@ -33,7 +32,7 @@ import { cn } from "@/lib/utils"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { AddUsername } from '@/actions/page';
+import { AddUsername } from '@/actions/dashboard';
 
 export const formSchema = z.object({
     Username: z
