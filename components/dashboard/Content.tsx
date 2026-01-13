@@ -6,7 +6,8 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { Info ,Copy} from 'lucide-react';
+import { Info} from 'lucide-react';
+import { IconExternalLink } from '@tabler/icons-react';
 import {
     Accordion,
     AccordionContent,
@@ -30,8 +31,8 @@ const Content = () => {
                     <ButtonGroup>
                         <Input readOnly defaultValue={process.env.NEXT_PUBLIC_PROJECT_URL + (header?.userName ?? "")} />
                         <Button
-                            variant="default" aria-label="Search">
-                            <Copy/>
+                            variant="default" aria-label="visit">
+                            <IconExternalLink/>
                         </Button>
                     </ButtonGroup>
                 </header>

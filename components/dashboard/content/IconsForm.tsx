@@ -1,8 +1,11 @@
 import React from 'react'
-
+import IconSelect from "@/components/dashboard/content/IconSelect"
 const IconsForm = () => {
   return (
-    <div>IconsForm</div>
+    <>
+    <IconSelect/>
+    </>
+    
   )
 }
 
