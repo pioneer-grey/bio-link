@@ -1,5 +1,5 @@
 {
-  "id": "4792281f-adbe-4144-86c2-f9105762cf3d",
+  "id": "e836b8ef-625e-41b4-b077-81faddf4edc4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -126,6 +126,190 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.header": {
+      "name": "header",
+      "schema": "",
+      "columns": {
+        "userName": {
+          "name": "userName",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'@username'"
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "picURL": {
+          "name": "picURL",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "header_userName_page_userName_fk": {
+          "name": "header_userName_page_userName_fk",
+          "tableFrom": "header",
+          "tableTo": "page",
+          "columnsFrom": [
+            "userName"
+          ],
+          "columnsTo": [
+            "userName"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.page": {
+      "name": "page",
+      "schema": "",
+      "columns": {
+        "userName": {
+          "name": "userName",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "primary_text_color": {
+          "name": "primary_text_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "primary_background": {
+          "name": "primary_background",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "desktop_background_color": {
+          "name": "desktop_background_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "profile_picture_shadow": {
+          "name": "profile_picture_shadow",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "profile_picture_border": {
+          "name": "profile_picture_border",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "social_icon_size": {
+          "name": "social_icon_size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_color": {
+          "name": "card_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_text_color": {
+          "name": "card_text_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_corner": {
+          "name": "card_corner",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_border": {
+          "name": "card_border",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_border_color": {
+          "name": "card_border_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_shadow": {
+          "name": "card_shadow",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "card_spacing": {
+          "name": "card_spacing",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "page_userId_user_id_fk": {
+          "name": "page_userId_user_id_fk",
+          "tableFrom": "page",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "page_userName_unique": {
+          "name": "page_userName_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "userName"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.session": {
       "name": "session",
       "schema": "",
@@ -222,6 +406,93 @@
           ]
         }
       },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.social": {
+      "name": "social",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_name": {
+          "name": "user_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "user_order_unique": {
+          "name": "user_order_unique",
+          "columns": [
+            {
+              "expression": "user_name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "social_user_name_page_userName_fk": {
+          "name": "social_user_name_page_userName_fk",
+          "tableFrom": "social",
+          "tableTo": "page",
+          "columnsFrom": [
+            "user_name"
+          ],
+          "columnsTo": [
+            "userName"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

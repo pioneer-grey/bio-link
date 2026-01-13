@@ -6,7 +6,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { Info } from 'lucide-react';
+import { Info ,Copy} from 'lucide-react';
 import {
     Accordion,
     AccordionContent,
@@ -16,22 +16,22 @@ import {
 import UploadImg from './content/UploadImg';
 import { ButtonGroup } from "@/components/ui/button-group"
 import HeaderForm from './content/HeaderForm';
+import IconsForm from './content/IconsForm';
 import { useHeader } from '@/store/useHeader';
 const Content = () => {
-    const {header}=useHeader()
+    const { header } = useHeader()
 
-    if(!header) return null
-    
+    if (!header) return null
+
     return (
         <>
             <div className='bg-card max-h-screen h-full overflow-auto'>
                 <header className='flex justify-center items-center  border-b p-4'>
                     <ButtonGroup>
-                        <Input readOnly defaultValue={process.env.NEXT_PUBLIC_PROJECT_URL+(header?.userName ?? "")} />
+                        <Input readOnly defaultValue={process.env.NEXT_PUBLIC_PROJECT_URL + (header?.userName ?? "")} />
                         <Button
-                            className='bg-blue-500 text-white'
                             variant="default" aria-label="Search">
-                            Publish
+                            <Copy/>
                         </Button>
                     </ButtonGroup>
                 </header>
@@ -43,7 +43,7 @@ const Content = () => {
                         className="w-full"
                         defaultValue="header"
                     >
-                         <AccordionItem value="avatar">
+                        <AccordionItem value="avatar">
                             <AccordionTrigger className='no-underline hover:no-underline decoration-none flex items-center gap-2'>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
@@ -55,7 +55,7 @@ const Content = () => {
                                 </Tooltip>
                                 Profile</AccordionTrigger>
                             <AccordionContent className='h-auto'>
-                              <UploadImg/>
+                                <UploadImg />
                             </AccordionContent>
                         </AccordionItem>
 
@@ -71,7 +71,22 @@ const Content = () => {
                                 </Tooltip>
                                 Header</AccordionTrigger>
                             <AccordionContent className='h-auto'>
-                               <HeaderForm/>
+                                <HeaderForm />
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="icons">
+                            <AccordionTrigger className='no-underline hover:no-underline decoration-none flex items-center gap-2'>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Info size={14} />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        Add Social Icons.
+                                    </TooltipContent>
+                                </Tooltip>
+                                Icons</AccordionTrigger>
+                            <AccordionContent className='h-auto'>
+                                <IconsForm/>
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>

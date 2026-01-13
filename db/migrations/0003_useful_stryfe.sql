@@ -1,1 +1,0 @@
-ALTER TABLE "header" ALTER COLUMN "name" DROP NOT NULL;

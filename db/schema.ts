@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index ,integer, serial} from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, integer, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -92,32 +92,49 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-export const page=pgTable("page",{
-  userName:text("userName").unique().notNull().primaryKey(),
-  userId:text("userId").notNull().references(()=>user.id),
+export const page = pgTable("page", {
+  userName: text("userName").unique().notNull().primaryKey(),
+  userId: text("userId").notNull().references(() => user.id),
 
-  primaryTextColor:text("primary_text_color"),
-  primaryBackground:text("primary_background"),
-  desktopBackgroundColor:text("desktop_background_color"),
+  primaryTextColor: text("primary_text_color"),
+  primaryBackground: text("primary_background"),
+  desktopBackgroundColor: text("desktop_background_color"),
 
-  profilePictureShadow:integer("profile_picture_shadow"),
-  profilePictureBorder:integer("profile_picture_border"),
-  socialIconSize:integer("social_icon_size"),
+  profilePictureShadow: integer("profile_picture_shadow"),
+  profilePictureBorder: integer("profile_picture_border"),
+  socialIconSize: integer("social_icon_size"),
 
-  cardColor:text("card_color"),
-  cardTextColor:text("card_text_color"),
-  cardCorner:integer("card_corner"),
-  cardBorder:integer("card_border"),
-  cardBorderColor:text("card_border_color"),
-  cardShadow:integer("card_shadow"),
-  cardSpacing:integer("card_spacing"),
+  cardColor: text("card_color"),
+  cardTextColor: text("card_text_color"),
+  cardCorner: integer("card_corner"),
+  cardBorder: integer("card_border"),
+  cardBorderColor: text("card_border_color"),
+  cardShadow: integer("card_shadow"),
+  cardSpacing: integer("card_spacing"),
 
-  createdAt:timestamp("createdAt").defaultNow()
+  createdAt: timestamp("createdAt").defaultNow()
 })
 
-export const header =pgTable("header",{
-  userName:text("userName").notNull().references(()=>page.userName).primaryKey(),
-  name:text("name").default("@username"),
-  bio:text("bio"),
-  picURL:text("picURL").default("https://github.com/maxleiter.png")
+export const header = pgTable("header", {
+  userName: text("userName").notNull().references(() => page.userName).primaryKey(),
+  name: text("name").default("@username"),
+  bio: text("bio"),
+  picURL: text("picURL")
 })
+
+export const social = pgTable("social",{
+    id: uuid("id").defaultRandom().primaryKey(),
+    userName: text("user_name")
+      .notNull()
+      .references(() => page.userName),
+    type: text("type").notNull(),
+    url: text("url"),
+    order: integer("order").notNull(),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => ({
+    userOrderUnique: uniqueIndex("user_order_unique").on(
+      table.userName,
+      table.order
+    ),
+  }));
