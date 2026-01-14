@@ -68,7 +68,7 @@ const GeneralStyles = () => {
     return (
         <>
             <Form {...form}>
-                <form className='border-b mb-2 mt-2' >
+                <form className='border-b m-2' >
                     <h1 className='text-sm font-bold pt-2 pl-4'>General Styles</h1>
                     <FormField
                         control={form.control}

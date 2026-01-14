@@ -1,10 +1,10 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
-
-import {MultiSelect} from "@/components/multi-select"
+import { useStyles } from "@/store/useStyles";
+import { MultiSelect } from "@/components/multi-select"
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,64 +14,123 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Plus} from "lucide-react";
-import { IconBrandFacebook,
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Plus } from "lucide-react";
+import {
+  IconBrandFacebook,
   IconBrandYoutube,
   IconBrandInstagram,
   IconBrandTiktok
 } from '@tabler/icons-react';
+import { AddIcons } from "@/actions/Icons";
 const FormSchema = z.object({
-  frameworks: z
+  icons: z
     .array(z.string())
 });
 
 const IconsList = [
-  { value: "fb", label: "Facebook",icon:IconBrandFacebook},
-  { value: "yt", label: "Youtube",icon:IconBrandYoutube},
-  { value: "tiktok", label: "Tiktok",icon:IconBrandInstagram},
-  { value: "insta", label: "Instagram" ,icon:IconBrandTiktok},
+  { value: "fb", label: "Facebook", icon: IconBrandFacebook },
+  { value: "yt", label: "Youtube", icon: IconBrandYoutube },
+  { value: "tiktok", label: "Tiktok", icon: IconBrandTiktok },
+  { value: "insta", label: "Instagram", icon: IconBrandInstagram },
 ];
 
 const IconSelect = () => {
-     const form = useForm<z.infer<typeof FormSchema>>({
+  const [open,setOpen]=React.useState<boolean>(false)
+  const { isPending, mutateAsync } = AddIcons()
+  const { styles } = useStyles()
+  const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      frameworks: [],
+      icons: [],
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
-    toast.success(`Selected: ${data.frameworks.join(", ")}`);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      if (!styles?.userName) return
+      const values = {
+        userName: styles?.userName,
+        icons: data.icons
+      }
+      const res = mutateAsync(values)
+      toast.promise(res, {
+        loading: "Adding icons…",
+        success: "Icons added successfully.",
+        error: "Failed to add icons."
+      })
+      await res
+      setOpen(false)
+    }
+    catch (err) {
+      console.log(err)
+    }
+
+
   }
 
   return (
     <>
-        <Form {...form}>
-      <h1 className="p-2">Add Icons</h1>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" flex gap-1 items-center">
-        <FormField 
-          control={form.control}
-          name="frameworks"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormControl>
-                <MultiSelect 
-                
-                className="border-2 border-secondary bg-card"
-                  options={IconsList}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  placeholder="Icons"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit"><Plus/></Button>
-      </form>
-    </Form>
+      <Dialog open={open} onOpenChange={()=>setOpen(!open)}>
+        <DialogTrigger asChild>
+          <Button variant="ghost"><Plus /></Button>
+        </DialogTrigger>
+        <DialogContent >
+          <DialogHeader>
+            <DialogTitle className="">Add Icons</DialogTitle>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="">
+              <FormField
+                control={form.control}
+                name="icons"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <MultiSelect
+
+                        className="border-2 dark:border-secondary border-black/40 bg-card"
+                        options={IconsList}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Select Icons"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter
+                className="mt-10"
+              >
+                <DialogClose>
+                  <Button variant={"ghost"}>
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button
+
+                  disabled={isPending}
+                  type="submit"
+                >
+                  Save
+                </Button>
+              </DialogFooter>
+
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
     </>
   )
 }

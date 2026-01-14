@@ -45,7 +45,7 @@ const CardStyles = () => {
     return (
         <>
             <Form {...form}>
-                <form className='mb-2' >
+                <form className='m-2' >
                     <h1 className='text-sm font-bold pt-2 pl-4'>Card Styles</h1>
                     <FormField
                         control={form.control}

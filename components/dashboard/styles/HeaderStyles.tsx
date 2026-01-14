@@ -67,7 +67,7 @@ const HeaderStyles = () => {
     return (
         <>
             <Form {...form}>
-                <form className='border-b mb-2'  >
+                <form className='border-b m-2'  >
                     <h1 className='text-sm pt-2 pl-4 font-bold '>Header Styles</h1>
                     <FormField
                         control={form.control}

@@ -44,22 +44,20 @@ export async function POST(req: NextRequest) {
         })
         if (!session?.user?.id) return NextResponse.error();
 
-        const { Icons } = await req.json()
-        const userName = Icons[0].userName
-
+        const { userName,icons } = await req.json()
+    
         await db.transaction(async (tx) => {
 
             const [{ nextOrder }] = await tx.select({
-                nextOrder: sql<number>`COALESCE(MAX(${social.order}),0)+1`,
+                nextOrder: sql<number>`COALESCE(MAX(${social.order}),0)`,
             })
                 .from(social)
                 .where(eq(social.userName, userName))
 
-            Icons.forEach(async (s: Icons, index: number) => {
+            icons.forEach(async (s: string, index: number) => {
                 await tx.insert(social).values({
                     userName,
-                    type: s.type,
-                    url: s.url || "",
+                    type: s,
                     order: nextOrder + index + 1
                 })
             })

@@ -24,6 +24,13 @@ export type styles= {
     picURL: string | null;
   }
 
+  export type icon={
+    userName:string;
+    type:string;
+    url:string|null;
+    order:number
+  }
+
 export type GeneralType=Pick<styles,
     "userName"|
     "primaryTextColor"|
