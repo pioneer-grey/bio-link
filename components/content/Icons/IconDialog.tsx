@@ -21,6 +21,7 @@ import {
   DialogFooter,
   DialogTrigger,
   DialogClose,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import { IconsList } from "@/lib/IconsList";
@@ -69,9 +70,12 @@ const IconDialog = () => {
         <DialogTrigger asChild>
           <Button variant="ghost"><Plus /></Button>
         </DialogTrigger>
-        <DialogContent >
+        <DialogContent className="bg-card">
           <DialogHeader>
             <DialogTitle className="">Add Icons</DialogTitle>
+             <DialogDescription>
+              Select one or more icons to include.
+            </DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="">

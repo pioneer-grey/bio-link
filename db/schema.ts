@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, index, integer, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { title } from "process";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -132,3 +133,13 @@ export const social = pgTable("social",{
     order: integer("order").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
   });
+
+export const block =pgTable("block",{
+  id:uuid("id").defaultRandom().primaryKey(),
+  userName:text("userName").notNull().references(()=>page.userName),
+  title:text("title"),
+  url:text("url"),
+  order:integer("order").notNull(),
+  createdAt:timestamp("createdAt").defaultNow()
+
+})

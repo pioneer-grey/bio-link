@@ -15,6 +15,20 @@
       "when": 1768412693745,
       "tag": "0001_wide_dust",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768474743935,
+      "tag": "0002_violet_hawkeye",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1768474777718,
+      "tag": "0003_lazy_prima",
+      "breakpoints": true
     }
   ]
 }

@@ -108,10 +108,10 @@ const Content = () => {
                                         <Info size={14} />
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                        Add Card.
+                                        Add Block.
                                     </TooltipContent>
                                 </Tooltip>
-                                Cards</AccordionTrigger>
+                                Blocks</AccordionTrigger>
                             <AccordionContent className='h-auto'>
                                <CardForm/>
                             </AccordionContent>
