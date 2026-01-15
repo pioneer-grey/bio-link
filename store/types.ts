@@ -31,6 +31,14 @@ export type styles= {
     order:number
   }
 
+  export type block={
+      id:string,
+      title:string | null,
+      url:string | null,
+      type:string,
+      order:number
+  }
+
 export type GeneralType=Pick<styles,
     "userName"|
     "primaryTextColor"|
