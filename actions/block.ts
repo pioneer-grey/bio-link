@@ -65,7 +65,7 @@ export const deleteBlock=()=>{
 export const updateBlock=()=>{
     const queryClient = useQueryClient();
     const{mutateAsync,isPending}=useMutation({
-        mutationFn:async(values:block)=>{
+        mutationFn:async(values:block[])=>{
             const res=await axios.post("/api/page/block",values)
             return res.data
         },
