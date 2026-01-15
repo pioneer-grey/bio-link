@@ -13,13 +13,13 @@ type Styles = {
     setProfilePictureBorder: (value:number) => void,
     setSocialIconSize: (value:number) => void,
 
-    // setCardColor: (value:string) => void,
-    // setCardTextColor: (value:string) => void,
-    // setCardCorner: (value:number) => void,
-    // setCardBorder: (value:number) => void,
-    // setCardBorderColor: (value:string) => void,
-    // setCardShadow: (value:number) => void,
-    // setCardSpacing: (value:number) => void,
+    setCardColor: (value:string) => void,
+    setCardTextColor: (value:string) => void,
+    setCardCorner: (value:number) => void,
+    setCardBorder: (value:number) => void,
+    setCardBorderColor: (value:string) => void,
+    setCardShadow: (value:number) => void,
+    setCardSpacing: (value:number) => void,
 
 }
 
@@ -86,5 +86,70 @@ export const useStyles=create<Styles>()((set)=>({
             },
         }
     }),
+
+     setCardColor:(cardColor)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+                cardColor
+            },
+        }
+    }),
+     setCardTextColor:(cardTextColor)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+                cardTextColor
+            },
+        }
+    }),
+     setCardCorner:(cardCorner)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+            cardCorner
+            },
+        }
+    }),
+     setCardBorder:(cardBorder)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+                cardBorder
+            },
+        }
+    }),
+     setCardBorderColor:(cardBorderColor)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+               cardBorderColor
+            },
+        }
+    }),
+     setCardShadow:(cardShadow)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+                cardShadow
+            },
+        }
+    }),
+     setCardSpacing:(cardSpacing)=>set((state)=>{
+        if(!state.styles) return state
+        return {
+            styles:{
+                ...state.styles,
+                cardSpacing,
+            },
+        }
+    }),
+
 
 }))

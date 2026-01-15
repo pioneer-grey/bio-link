@@ -3,31 +3,37 @@ import { useBlock } from '@/store/useBlocks'
 import { useStyles } from '@/store/useStyles'
 import ButtonBlock from '../content/card/Block/ButtonBlock'
 const Blocks = () => {
-    const{block}=useBlock()
-    const{styles}=useStyles()
-  return (
-    <>
-    {block&&
-        <div className='flex flex-col items-center mt-4'
-        style={{
-            gap: styles?.cardSpacing ?? 6
-        }}
-        >
-            {block.map((item,i)=>{
-                switch(item.type){
-                    case "url":
-                        return (
-                           <ButtonBlock
-                           title={item.title}
-                           url={item.url}
-                           />
-                        )
-                }
-            })}
-        </div>
-    }
-    </>
-  )
+    const { block } = useBlock()
+    const { styles } = useStyles()
+    if (!block) return null
+    return (
+        <>
+            {block &&
+                <div className='flex flex-col items-center mt-4'
+                    style={{
+                        gap: styles?.cardSpacing ?? 6,
+                        color: styles?.cardTextColor || "white"
+                    }}
+                >
+                    {block.map((item, i) => {
+                        switch (item.type) {
+                            case "url":
+                                return (
+                                    <ButtonBlock
+                                        key={i}
+                                        title={item.title}
+                                        url={item.url}
+                                    />
+                                )
+
+                            default:
+                                return null
+                            }
+                    })}
+                </div>
+            }
+        </>
+    )
 }
 
 export default Blocks
