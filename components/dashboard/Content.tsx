@@ -18,57 +18,12 @@ import UploadImg from '../content/Profile/UploadImg';
 import { ButtonGroup } from "@/components/ui/button-group"
 import HeaderForm from '../content/Header/HeaderForm';
 import IconsForm from '../content/Icons/IconsForm';
-import { useIcon } from '@/store/useIcons'
-import { getIcons, UpdateIcons } from '@/actions/Icons'
 import { useHeader } from '@/store/useHeader';
-import { useBlock } from '@/store/useBlocks'
-import { getBlocks } from '@/actions/block'
 import CardForm from '../content/card/CardForm';
 
 const Content = () => {
-    const { data} = getIcons()
-    const { setIcon,icon,lastState } = useIcon()
+   
     const { header } = useHeader()
-     const{mutateAsync}=UpdateIcons()
-    const { data: blockData } = getBlocks()
-    const {setBlock } = useBlock()
-
-    // Set State Icon and Block  
-    React.useEffect(() => {
-        if (blockData?.blocks) {
-            setBlock(blockData?.blocks)
-        }
-    }, [blockData])
-
-
-    React.useEffect(() => {
-        if (data?.icons) {
-            setIcon(data?.icons)
-        }
-    }, [data])
-
-    // On Update State Run useEffect 
-     React.useEffect(()=>{
-    if(!icon) return 
-    if(lastState=="delete"|| lastState=="initial") return 
-    const submit=async()=>{
-        try{
-            await mutateAsync(icon)
-        }
-        catch(err){
-            console.log(err)
-        }
-    }
-
-    let timeout: NodeJS.Timeout
-    timeout=setTimeout(()=>{
-        submit()
-    },5000)
-    return ()=>{
-        clearTimeout(timeout)
-    }
-  },[icon])
-
     if (!header) return null
 
     return (

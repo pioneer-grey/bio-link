@@ -6,12 +6,14 @@ import Username from "@/components/dashboard/Username"
 import Display from "@/components/dashboard/Display"
 import Styles from "@/components/dashboard/Styles"
 import Content from "@/components/dashboard/Content"
-
+import { useIconhook } from '@/hooks/useIconhook'
+import { useBlockhook } from '@/hooks/useBlockhook'
 export default function page() {
   const {data,isLoading}=useDashboard()
+  useIconhook()
+  useBlockhook()
 
 
-  
   if (isLoading) {
     return (
       <div className='h-screen flex justify-center items-center'>
