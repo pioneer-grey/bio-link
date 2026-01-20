@@ -20,9 +20,10 @@ import HeaderForm from '../content/Header/HeaderForm';
 import IconsForm from '../content/Icons/IconsForm';
 import { useHeader } from '@/store/useHeader';
 import CardForm from '../content/card/CardForm';
+import { useRouter } from 'next/navigation';
 
 const Content = () => {
-   
+    const router =useRouter()
     const { header } = useHeader()
     if (!header) return null
 
@@ -31,8 +32,9 @@ const Content = () => {
             <div className='bg-card max-h-screen h-full overflow-auto'>
                 <header className='flex justify-center items-center  border-b p-4'>
                     <ButtonGroup>
-                        <Input readOnly defaultValue={process.env.NEXT_PUBLIC_PROJECT_URL + (header?.userName ?? "")} />
+                        <Input readOnly defaultValue={process.env.NEXT_PUBLIC_PROJECT_URL + (header?.userName || "")} />
                         <Button
+                            onClick={()=>router.push("/"+(header?.userName|| ""))}
                             variant="default" aria-label="visit">
                             <IconExternalLink />
                         </Button>

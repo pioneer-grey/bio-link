@@ -5,7 +5,6 @@ import Header from '../display/Header';
 import Icons from "../display/Icons"
 import Blocks from "@/components/display/Blocks"
 import { ScrollArea } from '../ui/scroll-area';
-
 const Display = () => {
   const { styles } = useStyles()
   return (
@@ -28,6 +27,8 @@ const Display = () => {
           
         </div>
       </div>
+
+
     </>
   )
 }

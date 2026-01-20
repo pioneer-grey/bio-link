@@ -6,10 +6,11 @@ import Blocks from "@/components/display/Blocks"
 import Icons from "@/components/display/Icons"
 import { useBiohook } from '@/hooks/useBiohook'
 import { Spinner } from '@/components/ui/spinner'
+import { notFound } from 'next/navigation'
 import { ScrollArea } from '@/components/ui/scroll-area'
 const page = () => {
   const { id } = useParams<{ id: string }>()
-  const { isLoading, styles } = useBiohook(id)
+  const { isLoading, styles,isError } = useBiohook(id)
 
   if (isLoading) {
     return (
@@ -19,7 +20,9 @@ const page = () => {
     )
   }
 
-
+  if(isError){
+    return notFound()
+  }
 
   return (
     <>

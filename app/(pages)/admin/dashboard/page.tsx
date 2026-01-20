@@ -42,7 +42,7 @@ export default function page() {
     <>
    <div className="grid grid-cols-12 ">
     <div className="col-span-12 md:col-span-3">
-      <Content></Content>
+      <Content/>
     </div>
 
     <div className="col-span-12 md:col-span-6">

@@ -7,7 +7,8 @@ export const getBio=(userName:string)=>{
         queryFn:async()=>{
             const res=await axios.get(`/api/bio/${userName}`)
             return res.data
-        }
+        },
+        retry: false,
     })
     return {data,isLoading,isError}
 }

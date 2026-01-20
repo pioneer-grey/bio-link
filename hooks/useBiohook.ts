@@ -5,7 +5,7 @@ import { useIcon } from "@/store/useIcons";
 import { useHeader } from "@/store/useHeader";
 import { useBlock } from "@/store/useBlocks";
 export const useBiohook=(id:string)=>{
-    const {data,isLoading}=getBio(id)
+    const {data,isLoading,isError}=getBio(id)
     const {setStyles,styles}=useStyles()
     const {setIcon}=useIcon()
     const {setHeader}=useHeader()
@@ -19,5 +19,5 @@ export const useBiohook=(id:string)=>{
         }
     },[data])
 
-    return {isLoading,styles}
+    return {isLoading,styles,isError}
 }
